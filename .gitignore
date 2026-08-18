@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+.next/
+build/
+
+# turborepo cache
+.turbo/
+
+# environment files — NEVER commit real credentials
+.env
+.env.local
+.env.*.local
+
+# prisma
+packages/db/prisma/migrations/dev.db
+
+# misc
+.DS_Store
+*.log
