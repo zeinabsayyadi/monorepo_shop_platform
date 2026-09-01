@@ -7,6 +7,9 @@
     "strict": true,
     "skipLibCheck": true,
     "types": ["node"],
-    "ignoreDeprecations": "6.0"
-  }
+    "ignoreDeprecations": "6.0",
+    "outDir": "./dist",
+    "declaration": true
+  },
+  "include": ["index.ts", "generated/**/*"]
 }
