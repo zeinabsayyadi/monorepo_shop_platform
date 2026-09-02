@@ -68,6 +68,35 @@ export class AuthService {
     return this.issueTokens(user.id, user.roleId);
   }
 
+  async refresh(rawRefreshToken: string) {
+    const tokenHash = this.hashToken(rawRefreshToken);
+    const stored = await this.prisma.refreshToken.findUnique({
+      where: { tokenHash },
+    });
+
+    if (!stored || stored.revoked || stored.expiresAt < new Date()) {
+      throw new UnauthorizedException('Refresh token invalid or expired.');
+    }
+
+    await this.prisma.refreshToken.update({
+      where: { id: stored.id },
+      data: { revoked: true },
+    });
+
+    const user = await this.prisma.user.findUniqueOrThrow({
+      where: { id: stored.userId },
+    });
+    return this.issueTokens(user.id, user.roleId);
+  }
+
+  async logout(rawRefreshToken: string) {
+    const tokenHash = this.hashToken(rawRefreshToken);
+    await this.prisma.refreshToken.updateMany({
+      where: { tokenHash },
+      data: { revoked: true },
+    });
+  }
+
   private async findOrCreateCustomer(phoneNumber: string) {
     const existing = await this.prisma.user.findUnique({
       where: { phoneNumber },
