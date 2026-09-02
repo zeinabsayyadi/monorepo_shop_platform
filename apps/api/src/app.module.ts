@@ -5,17 +5,19 @@ import { AppService } from './app.service';
 import { RedisModule } from './redis/redis.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
-import { RolePermissionsCacheService } from './casl/role-permissions-cache.service';
-import { CaslAbilityFactory } from './casl/casl-ability.factory';
+import { CaslModule } from './casl/casl.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     RedisModule,
     PrismaModule,
+    CaslModule,
     AuthModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CaslAbilityFactory, RolePermissionsCacheService],
+  providers: [AppService],
 })
 export class AppModule {}
