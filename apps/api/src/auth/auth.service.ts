@@ -11,6 +11,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { REDIS_CLIENT } from '../redis/redis.module';
 import { SMS_PROVIDER } from '../sms/sms-provider.interface';
 import type { SmsProvider } from '../sms/sms-provider.interface';
+import { CartService } from '../cart/cart.service';
 
 const OTP_TTL_SECONDS = 120;
 const OTP_RESEND_COOLDOWN_SECONDS = 60;
@@ -28,6 +29,7 @@ export class AuthService {
     private readonly jwt: JwtService,
     @Inject(REDIS_CLIENT) private readonly redis: Redis,
     @Inject(SMS_PROVIDER) private readonly sms: SmsProvider,
+    private readonly cartService: CartService,
   ) {}
 
   async requestOtp(phoneNumber: string): Promise<void> {
@@ -51,7 +53,7 @@ export class AuthService {
     await this.sms.sendOtp(phoneNumber, code);
   }
 
-  async verifyOtp(phoneNumber: string, code: string) {
+  async verifyOtp(phoneNumber: string, code: string, guestCartId?: string) {
     const attempts = await this.redis.incr(otpAttemptsKey(phoneNumber));
     await this.redis.expire(otpAttemptsKey(phoneNumber), OTP_TTL_SECONDS);
     if (attempts > OTP_MAX_ATTEMPTS) {
@@ -65,6 +67,14 @@ export class AuthService {
     await this.redis.del(otpKey(phoneNumber));
 
     const user = await this.findOrCreateCustomer(phoneNumber);
+
+    if (guestCartId) {
+      await this.cartService.mergeGuestCartIntoUserCart(
+        `guest:${guestCartId}`,
+        `user:${user.id}`,
+      );
+    }
+
     return this.issueTokens(user.id, user.roleId);
   }
 

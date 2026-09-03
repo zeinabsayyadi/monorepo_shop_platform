@@ -6,6 +6,7 @@ import { SmsModule } from '../sms/sms.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { CartModule } from '../cart/cart.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         secret: config.getOrThrow<string>('JWT_ACCESS_SECRET'),
       }),
     }),
+    CartModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
