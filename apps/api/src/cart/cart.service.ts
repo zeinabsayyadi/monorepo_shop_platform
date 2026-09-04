@@ -5,6 +5,30 @@ import { PrismaService } from '../prisma/prisma.service';
 
 const CART_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
+export interface AvailableCartItem {
+  productId: string;
+  name: string;
+  unitPrice: number;
+  quantity: number;
+  lineTotal: number;
+  available: true;
+  maxStock: number;
+}
+
+export interface UnavailableCartItem {
+  productId: string;
+  quantity: number;
+  available: false;
+}
+
+type CartItem = AvailableCartItem | UnavailableCartItem;
+
+export interface CartSummary {
+  items: CartItem[];
+  subtotal: number;
+  itemCount: number;
+}
+
 @Injectable()
 export class CartService {
   constructor(
@@ -64,7 +88,7 @@ export class CartService {
     return { items: [], subtotal: 0, itemCount: 0 };
   }
 
-  async getCart(cartId: string) {
+  async getCart(cartId: string): Promise<CartSummary> {
     const raw = await this.redis.hgetall(this.key(cartId));
     const productIds = Object.keys(raw);
     if (productIds.length === 0)
@@ -78,7 +102,7 @@ export class CartService {
 
     let subtotal = 0;
     let itemCount = 0;
-    const items = productIds.map((productId) => {
+    const items = productIds.map((productId): CartItem => {
       const quantity = Number(raw[productId]);
       const product = productMap.get(productId);
 

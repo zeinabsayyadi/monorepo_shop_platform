@@ -9,6 +9,8 @@ import { CaslModule } from './casl/casl.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
+import { AddressesModule } from './addresses/addresses.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { CartModule } from './cart/cart.module';
     CategoriesModule,
     ProductsModule,
     CartModule,
+    AddressesModule,
+    CheckoutModule,
   ],
   controllers: [AppController],
   providers: [AppService],

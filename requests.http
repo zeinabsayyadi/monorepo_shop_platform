@@ -1,0 +1,203 @@
+### ============================================
+### Variables — edit these as you go
+### ============================================
+@baseUrl = http://localhost:3000
+@phoneNumber = +989121234567
+
+# Paste a fresh accessToken here after logging in (see "Verify OTP" below).
+# Every request below reuses {{accessToken}} — update this ONE line instead
+# of pasting the token into every request.
+@accessToken = PASTE_ACCESS_TOKEN_HERE
+
+# Update these as you create real records, so requests below reference real ids.
+@productId = cmtkkkoar0001d4v8jh4yu9to
+@categoryId = cmtkjaw430002eov8w86ftax2
+@addressId = PASTE_ADDRESS_ID_HERE
+
+
+### ============================================
+### AUTH
+### ============================================
+
+### Request OTP (check the `nest start` terminal for the code — dev mode logs it)
+POST {{baseUrl}}/auth/otp/request
+Content-Type: application/json
+
+{
+  "phoneNumber": "{{phoneNumber}}"
+}
+
+### Verify OTP — copy the accessToken from the response into the variable above
+# @name verifyOtp
+POST {{baseUrl}}/auth/otp/verify
+Content-Type: application/json
+
+{
+  "phoneNumber": "{{phoneNumber}}",
+  "code": "PASTE_CODE_FROM_TERMINAL"
+}
+
+### Refresh token
+POST {{baseUrl}}/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "PASTE_REFRESH_TOKEN_HERE"
+}
+
+### Logout
+POST {{baseUrl}}/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "PASTE_REFRESH_TOKEN_HERE"
+}
+
+
+### ============================================
+### CATEGORIES
+### ============================================
+
+### List categories (public, no auth needed)
+GET {{baseUrl}}/categories
+
+### Get one category
+GET {{baseUrl}}/categories/{{categoryId}}
+
+### Create category (needs Category:manage permission)
+POST {{baseUrl}}/categories
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "translations": [
+    { "locale": "fa", "name": "لوازم آرایشی", "slug": "cosmetics" }
+  ]
+}
+
+### Delete category
+DELETE {{baseUrl}}/categories/{{categoryId}}
+Authorization: Bearer {{accessToken}}
+
+
+### ============================================
+### PRODUCTS
+### ============================================
+
+### List products (public)
+GET {{baseUrl}}/products
+
+### Get one product
+GET {{baseUrl}}/products/{{productId}}
+
+### Create product (needs Product:manage permission)
+POST {{baseUrl}}/products
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "sku": "LIPSTICK-002",
+  "price": 300000,
+  "stock": 20,
+  "categoryId": "{{categoryId}}",
+  "translations": [
+    { "locale": "fa", "name": "رژ لب دوم", "slug": "lipstick-002" }
+  ]
+}
+
+### Delete product
+DELETE {{baseUrl}}/products/{{productId}}
+Authorization: Bearer {{accessToken}}
+
+### Upload product image
+# Note: file upload needs multipart — REST Client supports it, see docs if needed,
+# but for image uploads curl (or Postman) is honestly still easier day to day.
+
+
+### ============================================
+### CART
+### ============================================
+
+### Get cart (works logged in OR as guest — REST Client auto-handles cookies per file)
+GET {{baseUrl}}/cart
+Authorization: Bearer {{accessToken}}
+
+### Add item to cart
+POST {{baseUrl}}/cart/items
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "productId": "{{productId}}",
+  "quantity": 2
+}
+
+### Update item quantity
+PATCH {{baseUrl}}/cart/items/{{productId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "quantity": 5
+}
+
+### Remove item
+DELETE {{baseUrl}}/cart/items/{{productId}}
+Authorization: Bearer {{accessToken}}
+
+### Clear cart
+DELETE {{baseUrl}}/cart
+Authorization: Bearer {{accessToken}}
+
+
+### ============================================
+### ADDRESSES
+### ============================================
+
+### List my addresses
+GET {{baseUrl}}/addresses
+Authorization: Bearer {{accessToken}}
+
+### Create address — copy the returned id into @addressId above
+POST {{baseUrl}}/addresses
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Home",
+  "province": "Tehran",
+  "city": "Tehran",
+  "line1": "Valiasr St, No. 12",
+  "postalCode": "1234567890",
+  "isDefault": true
+}
+
+### Delete address
+DELETE {{baseUrl}}/addresses/{{addressId}}
+Authorization: Bearer {{accessToken}}
+
+
+### ============================================
+### CHECKOUT
+### ============================================
+
+### Checkout current cart into a real order
+POST {{baseUrl}}/checkout
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "addressId": "{{addressId}}"
+}
+
+
+### ============================================
+### RBAC PROOF (from Phase 1)
+### ============================================
+
+### No token — expect 401
+GET {{baseUrl}}/roles
+
+### With token — expect 403 for a Customer role, 200 for Shop Manager/Super Admin
+GET {{baseUrl}}/roles
+Authorization: Bearer {{accessToken}}

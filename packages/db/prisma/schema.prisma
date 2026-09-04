@@ -161,6 +161,7 @@ model Address {
   line1      String
   line2      String?
   postalCode String
+  name       String?
   isDefault  Boolean @default(false)
 
   orders Order[]
