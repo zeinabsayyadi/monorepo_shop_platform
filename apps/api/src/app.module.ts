@@ -13,6 +13,7 @@ import { AddressesModule } from './addresses/addresses.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { QueueModule } from './queue/queue.module';
 import { PaymentsModule } from './payments/payments.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PaymentsModule } from './payments/payments.module';
     CheckoutModule,
     QueueModule,
     PaymentsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

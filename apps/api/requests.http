@@ -2,12 +2,12 @@
 ### Variables — edit these as you go
 ### ============================================
 @baseUrl = http://localhost:3000
-@phoneNumber = +989101234567
+@phoneNumber = +989121234567
 
 # Paste a fresh accessToken here after logging in (see "Verify OTP" below).
 # Every request below reuses {{accessToken}} — update this ONE line instead
 # of pasting the token into every request.
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODYwMzY5NCwiZXhwIjoxNzg4NjA0NTk0fQ.bP4fSr_-HZFjqcXRr0modEelyPjEmklMh16-MUe0Ncg
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRrMWNqa2owMDAwY3l2OHdiOHExdWp0Iiwicm9sZUlkIjoiY210MDB6dDR2MDAxOXhmdjhkaXN6eHhnMCIsImlhdCI6MTc4ODYzMTcxMCwiZXhwIjoxNzg4NjMyNjEwfQ.4PsPgQjXudQGd1oKqdwvajIOupd0s_8NPtl9yY6ACFI
 @refreshToken = 9171d02270e77d74c1dfc4757422f66c2b70500d7267a8cba437a4a09b54e0382066f6c7a7f8574e
 
 # Update these as you create real records, so requests below reference real ids.
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "phoneNumber": "{{phoneNumber}}",
-  "code": "64085"
+  "code": "52689"
 }
 
 ### Refresh token
