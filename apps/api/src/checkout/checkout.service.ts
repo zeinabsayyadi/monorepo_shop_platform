@@ -2,6 +2,11 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CartService } from '../cart/cart.service';
 import { AddressesService } from '../addresses/addresses.service';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+import { ORDER_CLEANUP_QUEUE } from '../queue/queue.constants';
+
+const ORDER_EXPIRY_MS = 60 * 60 * 1000; // 60 minutes
 
 @Injectable()
 export class CheckoutService {
@@ -9,6 +14,7 @@ export class CheckoutService {
     private readonly prisma: PrismaService,
     private readonly cartService: CartService,
     private readonly addressesService: AddressesService,
+    @InjectQueue(ORDER_CLEANUP_QUEUE) private readonly orderCleanupQueue: Queue,
   ) {}
 
   async checkout(userId: string, addressId: string) {
@@ -70,6 +76,12 @@ export class CheckoutService {
         include: { items: true, address: true },
       });
     });
+
+    await this.orderCleanupQueue.add(
+      'cancel-expired-order',
+      { orderId: order.id },
+      { delay: ORDER_EXPIRY_MS, jobId: order.id },
+    );
 
     await this.cartService.clearCart(`user:${userId}`);
     return order;

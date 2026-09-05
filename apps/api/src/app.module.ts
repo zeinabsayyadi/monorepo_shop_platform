@@ -11,6 +11,7 @@ import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { CheckoutModule } from './checkout/checkout.module';
+import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CheckoutModule } from './checkout/checkout.module';
     CartModule,
     AddressesModule,
     CheckoutModule,
+    QueueModule,
   ],
   controllers: [AppController],
   providers: [AppService],

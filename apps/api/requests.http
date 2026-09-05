@@ -7,12 +7,13 @@
 # Paste a fresh accessToken here after logging in (see "Verify OTP" below).
 # Every request below reuses {{accessToken}} — update this ONE line instead
 # of pasting the token into every request.
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODQ5OTA0MiwiZXhwIjoxNzg4NDk5OTQyfQ.rv-MyzmD1Ij42aaZchZJ3DabydO6QpQMQbJdFYvN9Hc
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODU4NTAxNiwiZXhwIjoxNzg4NTg1OTE2fQ.4IAJdnCkZdTRVb9vFUYx1h7b4zz-3v-eKcWCz70pNrk
+@refreshToken = f8c1c6b3d43355d3c4532daa94f6f1688afa8fadcbbe672159fa4a5cedd05cec21562151e4d3f234
 
 # Update these as you create real records, so requests below reference real ids.
 @productId = cmtkkkoar0001d4v8jh4yu9to
 @categoryId = cmtkjaw430002eov8w86ftax2
-@addressId = PASTE_ADDRESS_ID_HERE
+@addressId = cmtmi63qo0003ksv8sw6hk6fx
 
 
 ### ============================================
@@ -34,7 +35,7 @@ Content-Type: application/json
 
 {
   "phoneNumber": "{{phoneNumber}}",
-  "code": "74431"
+  "code": "66937"
 }
 
 ### Refresh token
@@ -42,7 +43,7 @@ POST {{baseUrl}}/auth/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "05f2286c818407ddde4681331346274a90c5330dfe294a70ff08b401547d3fa9e3fb09677f4ae354"
+  "refreshToken": "{{refreshToken}}"
 }
 
 ### Logout
@@ -50,7 +51,7 @@ POST {{baseUrl}}/auth/logout
 Content-Type: application/json
 
 {
-  "refreshToken": "05f2286c818407ddde4681331346274a90c5330dfe294a70ff08b401547d3fa9e3fb09677f4ae354"
+  "refreshToken": "{{refreshToken}}"
 }
 
 
