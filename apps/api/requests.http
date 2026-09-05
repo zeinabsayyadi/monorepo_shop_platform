@@ -7,8 +7,8 @@
 # Paste a fresh accessToken here after logging in (see "Verify OTP" below).
 # Every request below reuses {{accessToken}} — update this ONE line instead
 # of pasting the token into every request.
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODU4NTAxNiwiZXhwIjoxNzg4NTg1OTE2fQ.4IAJdnCkZdTRVb9vFUYx1h7b4zz-3v-eKcWCz70pNrk
-@refreshToken = f8c1c6b3d43355d3c4532daa94f6f1688afa8fadcbbe672159fa4a5cedd05cec21562151e4d3f234
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODYwMzY5NCwiZXhwIjoxNzg4NjA0NTk0fQ.bP4fSr_-HZFjqcXRr0modEelyPjEmklMh16-MUe0Ncg
+@refreshToken = 9171d02270e77d74c1dfc4757422f66c2b70500d7267a8cba437a4a09b54e0382066f6c7a7f8574e
 
 # Update these as you create real records, so requests below reference real ids.
 @productId = cmtkkkoar0001d4v8jh4yu9to
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "phoneNumber": "{{phoneNumber}}",
-  "code": "66937"
+  "code": "64085"
 }
 
 ### Refresh token
@@ -97,10 +97,10 @@ Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-  "sku": "RACE-TEST-001",
+  "sku": "RACE-TEST-002",
   "price": 100000,
-  "stock": 1,
-  "translations": [{ "locale": "fa", "name": "Race Test", "slug": "race-test" }]
+  "stock": 8,
+  "translations": [{ "locale": "fa", "name": "Race Test", "slug": "race-test2" }]
 }
 
 ### Delete product
