@@ -2,7 +2,7 @@
 ### Variables — edit these as you go
 ### ============================================
 @baseUrl = http://localhost:3000
-@phoneNumber = +989121234567
+@phoneNumber = +989101234567
 
 # Paste a fresh accessToken here after logging in (see "Verify OTP" below).
 # Every request below reuses {{accessToken}} — update this ONE line instead
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "phoneNumber": "{{phoneNumber}}",
-  "code": "52689"
+  "code": "22482"
 }
 
 ### Refresh token
