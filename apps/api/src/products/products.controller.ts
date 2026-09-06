@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UploadedFile,
@@ -17,6 +18,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import type {} from 'multer';
+import { UpdateProductTranslationDto } from './dto/update-product-translation.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -70,5 +72,19 @@ export class ProductsController {
     @UploadedFile() file: Express.Multer.File,
   ) {
     return this.productsService.addImage(id, file);
+  }
+
+  @Patch(':id/translations/:locale')
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies(
+    (ability) =>
+      ability.can('manage', 'Content') || ability.can('manage', 'Product'),
+  )
+  updateTranslation(
+    @Param('id') id: string,
+    @Param('locale') locale: 'fa' | 'en',
+    @Body() dto: UpdateProductTranslationDto,
+  ) {
+    return this.productsService.updateTranslation(id, locale, dto);
   }
 }

@@ -16,6 +16,8 @@ import { PaymentsModule } from './payments/payments.module';
 import { OrdersModule } from './orders/orders.module';
 import { RolesModule } from './roles/roles.module';
 import { CouponsModule } from './coupons/coupons.module';
+import { PagesModule } from './pages/pages.module';
+import { RedirectsModule } from './redirects/redirects.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { CouponsModule } from './coupons/coupons.module';
     OrdersModule,
     RolesModule,
     CouponsModule,
+    PagesModule,
+    RedirectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -118,6 +118,9 @@ model CategoryTranslation {
   name       String
   slug       String
 
+  metaTitle       String?
+  metaDescription String?
+
   @@unique([categoryId, locale])
   @@unique([locale, slug])
 }
@@ -149,6 +152,9 @@ model ProductTranslation {
   name        String
   description String?
   slug        String
+
+  metaTitle       String?
+  metaDescription String?
 
   @@unique([productId, locale])
   @@unique([locale, slug])
@@ -262,4 +268,37 @@ model CouponRedemption {
   createdAt DateTime @default(now())
 
   @@unique([couponId, userId]) // the actual "one use per customer" guarantee
+}
+
+model Page {
+  id          String    @id @default(cuid())
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  translations PageTranslation[]
+}
+
+model PageTranslation {
+  id              String  @id @default(cuid())
+  pageId          String
+  page            Page    @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  locale          Locale
+  title           String
+  slug            String
+  body            String
+  metaTitle       String?
+  metaDescription String?
+
+  @@unique([pageId, locale])
+  @@unique([locale, slug])
+}
+
+model Redirect {
+  id         String   @id @default(cuid())
+  fromPath   String   @unique
+  toPath     String
+  statusCode Int      @default(301)
+  createdAt  DateTime @default(now())
 }

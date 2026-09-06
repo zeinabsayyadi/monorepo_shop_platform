@@ -4,6 +4,8 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { STORAGE_PROVIDER } from '../storage/storage-provider.interface';
 import type { StorageProvider } from '../storage/storage-provider.interface';
 import * as crypto from 'crypto';
+import { UpdateProductTranslationDto } from './dto/update-product-translation.dto';
+
 @Injectable()
 export class ProductsService {
   constructor(
@@ -72,6 +74,18 @@ export class ProductsService {
       where: { id: productId },
       data: { images: { push: url } },
       include: { translations: true },
+    });
+  }
+
+  async updateTranslation(
+    productId: string,
+    locale: 'fa' | 'en',
+    dto: UpdateProductTranslationDto,
+  ) {
+    await this.findOne(productId);
+    return this.prisma.productTranslation.update({
+      where: { productId_locale: { productId, locale } },
+      data: dto,
     });
   }
 }

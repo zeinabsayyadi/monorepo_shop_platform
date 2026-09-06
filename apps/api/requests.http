@@ -7,7 +7,7 @@
 # Paste a fresh accessToken here after logging in (see "Verify OTP" below).
 # Every request below reuses {{accessToken}} — update this ONE line instead
 # of pasting the token into every request.
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODY5NjA1MywiZXhwIjoxNzg4Njk2OTUzfQ.VU6IKo-l3qYgdKkzuhMDDByNTLoc3u4u_n5zBY8YYdc
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODY5NjgzMywiZXhwIjoxNzg4Njk3NzMzfQ.4uv_yx35G8AKQcRnR-u4KAIwZFm6nIWlexH0UxqZuIU
 @refreshToken = 9171d02270e77d74c1dfc4757422f66c2b70500d7267a8cba437a4a09b54e0382066f6c7a7f8574e
 
 # Update these as you create real records, so requests below reference real ids.
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "phoneNumber": "{{phoneNumber}}",
-  "code": "65617"
+  "code": "71265"
 }
 
 ### Refresh token
@@ -164,7 +164,7 @@ Authorization: Bearer {{accessToken}}
 { "name": "Home", 
 "province": "Tehran", 
 "city": "Tehran", 
-"line1": "Test St 2", 
+"line1": "Test St 3", 
 "postalCode": "2222222222" 
 }
 
@@ -184,7 +184,7 @@ Authorization: Bearer {{accessToken}}
 
 {
   "addressId": "{{addressId}}",
-  "couponCode": "WELCOME11"
+  "couponCode": "LIMIT1"
 }
 
 
