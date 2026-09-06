@@ -15,6 +15,7 @@ import { QueueModule } from './queue/queue.module';
 import { PaymentsModule } from './payments/payments.module';
 import { OrdersModule } from './orders/orders.module';
 import { RolesModule } from './roles/roles.module';
+import { CouponsModule } from './coupons/coupons.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { RolesModule } from './roles/roles.module';
     PaymentsModule,
     OrdersModule,
     RolesModule,
+    CouponsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

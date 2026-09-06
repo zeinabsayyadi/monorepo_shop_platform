@@ -72,6 +72,8 @@ model User {
 
   addresses Address[]
   orders    Order[]
+
+  couponRedemptions CouponRedemption[]
 }
 
 model RefreshToken {
@@ -190,6 +192,11 @@ model Order {
 
   items    OrderItem[]
   payments Payment[]
+
+  couponId         String?
+  coupon           Coupon?           @relation(fields: [couponId], references: [id])
+  discountAmount   Int               @default(0)
+  couponRedemption CouponRedemption?
 }
 
 model OrderItem {
@@ -213,11 +220,46 @@ model Payment {
   orderId   String
   order     Order         @relation(fields: [orderId], references: [id])
   provider  String
-  authority String?
+  authority String?       @unique
   refId     String?
   amount    Int
   status    PaymentStatus @default(PENDING)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
   metadata  Json?
+}
+
+enum CouponType {
+  PERCENTAGE
+  FIXED
+}
+
+model Coupon {
+  id              String     @id @default(cuid())
+  code            String     @unique
+  type            CouponType
+  value           Int // percentage (0-100) or fixed Rial amount, depending on type
+  minOrderTotal   Int?
+  maxRedemptions  Int? // null = unlimited overall
+  redemptionCount Int        @default(0)
+  expiresAt       DateTime?
+  isActive        Boolean    @default(true)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  redemptions CouponRedemption[]
+  orders      Order[]
+}
+
+model CouponRedemption {
+  id        String   @id @default(cuid())
+  couponId  String
+  coupon    Coupon   @relation(fields: [couponId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  orderId   String   @unique
+  order     Order    @relation(fields: [orderId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([couponId, userId]) // the actual "one use per customer" guarantee
 }

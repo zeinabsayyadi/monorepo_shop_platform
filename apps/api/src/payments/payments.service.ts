@@ -55,7 +55,7 @@ export class PaymentsService {
   }
 
   async handleCallback(authority: string, status: string) {
-    const payment = await this.prisma.payment.findFirst({
+    const payment = await this.prisma.payment.findUnique({
       where: { authority },
     });
     if (!payment)
