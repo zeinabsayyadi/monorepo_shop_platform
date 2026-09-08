@@ -7,8 +7,11 @@
 # Paste a fresh accessToken here after logging in (see "Verify OTP" below).
 # Every request below reuses {{accessToken}} — update this ONE line instead
 # of pasting the token into every request.
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODY5NjgzMywiZXhwIjoxNzg4Njk3NzMzfQ.4uv_yx35G8AKQcRnR-u4KAIwZFm6nIWlexH0UxqZuIU
-@refreshToken = 9171d02270e77d74c1dfc4757422f66c2b70500d7267a8cba437a4a09b54e0382066f6c7a7f8574e
+# @accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZHNlZHEwMDA0YnJ2OHA4dHN4MzhxIiwicm9sZUlkIjoiY210MDB6dDRoMDAwbXhmdjgweTZqNWN6ayIsImlhdCI6MTc4ODg1MDI2MywiZXhwIjoxNzg4ODUxMTYzfQ.ORMU7nR3Ft7ymJPwhzm-UMpiseb3P8L_dmPkpMl9sHc
+# @refreshToken = d0925c094c954395d9e8472d11fe18ffb981cfff59257a558c84b7c08d24c5a9bd3c9c34fbaafa0e
+
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbXRtZjExYTIwMDAxcXl2ODMzM2owZ2xqIiwicm9sZUlkIjoiY210MDB6dDVrMDAyY3hmdjgwYjZna2ZtcCIsImlhdCI6MTc4ODg1MDM3MSwiZXhwIjoxNzg4ODUxMjcxfQ.GPH2UkJgkbZS3bNYJzRxAr-cmb11xf116xCoM4V2dcM
+@refreshToken = 990ad4c6afc39c067e9708552e3851c972aa0d872601794f1e49641349111783f015c6de86daa58f
 
 # Update these as you create real records, so requests below reference real ids.
 @productId = cmtkkkoar0001d4v8jh4yu9to
@@ -35,7 +38,7 @@ Content-Type: application/json
 
 {
   "phoneNumber": "{{phoneNumber}}",
-  "code": "71265"
+  "code": "52903"
 }
 
 ### Refresh token
