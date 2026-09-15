@@ -18,6 +18,7 @@ import { RolesModule } from './roles/roles.module';
 import { CouponsModule } from './coupons/coupons.module';
 import { PagesModule } from './pages/pages.module';
 import { RedirectsModule } from './redirects/redirects.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { RedirectsModule } from './redirects/redirects.module';
     CouponsModule,
     PagesModule,
     RedirectsModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

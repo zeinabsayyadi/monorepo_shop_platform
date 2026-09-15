@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
   "phoneNumber": "{{phoneNumber}}",
-  "code": "52903"
+  "code": "93545"
 }
 
 ### Refresh token
