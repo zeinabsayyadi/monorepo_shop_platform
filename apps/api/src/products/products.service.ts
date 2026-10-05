@@ -88,4 +88,22 @@ export class ProductsService {
       data: dto,
     });
   }
+
+  async findBySlug(locale: 'fa' | 'en', slug: string) {
+    const translation = await this.prisma.productTranslation.findUnique({
+      where: { locale_slug: { locale, slug } },
+      include: {
+        product: {
+          include: {
+            translations: true,
+            category: { include: { translations: true } },
+          },
+        },
+      },
+    });
+    if (!translation || !translation.product.isActive) {
+      throw new NotFoundException('Product not found');
+    }
+    return translation.product;
+  }
 }

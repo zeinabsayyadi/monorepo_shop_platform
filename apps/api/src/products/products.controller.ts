@@ -87,4 +87,12 @@ export class ProductsController {
   ) {
     return this.productsService.updateTranslation(id, locale, dto);
   }
+
+  @Get('slug/:locale/:slug')
+  findBySlug(
+    @Param('locale') locale: 'fa' | 'en',
+    @Param('slug') slug: string,
+  ) {
+    return this.productsService.findBySlug(locale, slug);
+  }
 }
